@@ -116,8 +116,8 @@ func maybeSleep(n int, t int) {
 //------------------------------
 
 // read ips out of terraform output
-func terraformDNS() ([]string, error) {
-	args := []string{"output", "eip"}
+func terraformGetVar(varName string) ([]string, error) {
+	args := []string{"output", varName}
 	label := "terraformDNS-cmd"
 	cmd := "terraform"
 	outFile := NewBufferCloser(nil)

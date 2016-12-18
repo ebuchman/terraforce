@@ -25,12 +25,12 @@ func MachN(machine string) int {
 }
 
 // TODO: safety
-func ResolveMachines(machines []string) []string {
+func ResolveMachines(machines []string, varName string) []string {
 
 	// machine is a name and number
 	// strip the name prefix to get the line number
 
-	machinesDNS, err := terraformDNS()
+	machinesDNS, err := terraformGetVar(varName)
 	if err != nil {
 		Exit(err.Error())
 	}
