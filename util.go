@@ -21,7 +21,7 @@ func runProcess(label string, command string, args []string, verbose bool) bool 
 
 func runProcessGetResult(label string, command string, args []string, verbose bool) (string, bool) {
 	outFile := NewBufferCloser(nil)
-	proc, err := pcm.StartProcess(label, command, args, nil, outFile)
+	proc, err := pcm.StartProcess(label, "", command, args, nil, outFile)
 	if err != nil {
 		if verbose {
 			fmt.Println(Red(err.Error()))
@@ -48,7 +48,7 @@ func runProcessGetResult(label string, command string, args []string, verbose bo
 }
 
 func runProcessInteractive(label string, command string, args []string, verbose bool) (string, bool) {
-	proc, err := pcm.StartProcess(label, command, args, os.Stdin, os.Stdout)
+	proc, err := pcm.StartProcess(label, "", command, args, os.Stdin, os.Stdout)
 	if err != nil {
 		if verbose {
 			fmt.Println(Red(err.Error()))
@@ -121,7 +121,7 @@ func terraformGetVar(varName string) ([]string, error) {
 	label := "terraformDNS-cmd"
 	cmd := "terraform"
 	outFile := NewBufferCloser(nil)
-	proc, err := pcm.StartProcess(label, cmd, args, nil, outFile)
+	proc, err := pcm.StartProcess(label, "", cmd, args, nil, outFile)
 	if err != nil {
 		return nil, err
 	}
