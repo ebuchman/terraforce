@@ -140,11 +140,10 @@ func scpCmdIterative(mach, user, sshKey string, args []string, n int, from, recu
 		return errors.New("scp expects exactly two args")
 	}
 	src, dst := args[0], args[1]
-	// XXX: n+1
 	if from {
-		dst = strings.Replace(dst, "?", Fmt("%d", n+1), -1)
+		dst = strings.Replace(dst, "?", Fmt("%d", n), -1)
 	} else {
-		src = strings.Replace(src, "?", Fmt("%d", n+1), -1)
+		src = strings.Replace(src, "?", Fmt("%d", n), -1)
 	}
 	cpArgs := cpToFrom(src, dst, user, mach, from, recursive)
 	args = append(sshArgs(mach, user, sshKey, true), cpArgs...)
