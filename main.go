@@ -34,6 +34,11 @@ var (
 		Usage: "Location of ssh key to use for login",
 	}
 
+	backgroundFlag = cli.BoolFlag{
+		Name:  "background,b",
+		Usage: "Run the command in the background - don't wait for it to return",
+	}
+
 	interactiveFlag = cli.BoolFlag{
 		Name:  "interactive,i",
 		Usage: "Interactive ssh session",
@@ -71,6 +76,7 @@ func main() {
 				sshKeyFlag,
 				tfOutputFlag,
 				interactiveFlag,
+				backgroundFlag,
 			},
 			Action: func(c *cli.Context) error {
 				cmdSsh(c)

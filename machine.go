@@ -21,7 +21,11 @@ func cmdSsh(c *cli.Context) {
 	if len(machines) == 1 && c.Bool("interactive") {
 		sshCmdInteractive(machines[0], c.String("user"), c.String("ssh-key"), args)
 	} else {
-		cmdBase(args, machines, c.String("user"), c.String("ssh-key"), sshCmd)
+		if c.Bool("background") {
+			cmdBase(args, machines, c.String("user"), c.String("ssh-key"), sshCmdBg)
+		} else {
+			cmdBase(args, machines, c.String("user"), c.String("ssh-key"), sshCmd)
+		}
 	}
 }
 
@@ -81,6 +85,14 @@ func sshArgs(mach, user, sshKey string, scp bool) []string {
 func sshCmd(mach, user, sshKey string, args []string) error {
 	args = append(sshArgs(mach, user, sshKey, false), args...)
 	if !runProcess("ssh-cmd-"+mach, "ssh", args, true) {
+		return errors.New("Failed to exec ssh command on machine " + mach)
+	}
+	return nil
+}
+
+func sshCmdBg(mach, user, sshKey string, args []string) error {
+	args = append(sshArgs(mach, user, sshKey, false), args...)
+	if !runProcessBg("ssh-cmd-"+mach, "ssh", args, true) {
 		return errors.New("Failed to exec ssh command on machine " + mach)
 	}
 	return nil
