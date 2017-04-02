@@ -1,0 +1,6 @@
+package: github.com/ebuchman/terraforce
+import:
+- package: github.com/codegangsta/cli
+- package: github.com/tendermint/go-common
+- package: github.com/tendermint/go-process
+- package: github.com/tendermint/go-wire
